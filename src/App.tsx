@@ -1,8 +1,7 @@
 function App() {
-
   return (
     <>
-      <h1>Vite + React</h1>
+      <h1 className="text-5xl font-medium">Vite + React</h1>
     </>
   )
 }
