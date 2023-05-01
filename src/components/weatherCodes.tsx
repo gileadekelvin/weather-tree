@@ -115,7 +115,10 @@ const weatherCodes: { [key: string]: { en: string; pt: string } } = {
 
 export const getWeather = (code: number | null | undefined) => {
   if (code === null || code === undefined) {
-    return 'not defined';
+    return {
+      en: 'not defined',
+      pt: 'Não definido',
+    };
   }
   return weatherCodes[code];
 };
