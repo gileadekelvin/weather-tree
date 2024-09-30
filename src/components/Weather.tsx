@@ -67,7 +67,7 @@ const Weather = (props: WeatherProps) => {
         </div>
         <div className='mt-1'>
           <p className='text-sm text-muted-foreground'>
-            {[city.admin1, city.admin2, city.admin3].filter((n) => !!n).join(' / ')}
+            {[city.admin3, city.admin2, city.admin1].filter((n) => !!n).join(' / ')}
           </p>
           <div className='mt-1 text-base'>
             <Badge variant='outline'>
