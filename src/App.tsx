@@ -16,7 +16,9 @@ const App = () => {
 
   return (
     <main className='mx-auto flex h-screen max-w-5xl flex-col items-center gap-4 py-16'>
-      <h1 className='text-4xl font-bold'>E esse calor?</h1>
+      <h1 className='text-4xl font-bold'>
+        E esse <del>calor</del> frio?
+      </h1>
       <div className='flex w-[400px] items-center rounded-lg border px-3' cmdk-input-wrapper=''>
         <Search className='mr-2 h-4 w-4 shrink-0 opacity-50' />
         <Input
