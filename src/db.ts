@@ -10,7 +10,7 @@ const db = new Dexie('CitiesDatabase') as Dexie & {
 
 // Schema declaration:
 db.version(1).stores({
-  cities: 'id, name, country, admin1, admin2, admin3, latitude, longitude',
+  cities: 'id, name, country, admin1, admin2, admin3, latitude, longitude, lastTemperature',
 });
 
 export type { City };

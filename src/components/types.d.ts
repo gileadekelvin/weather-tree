@@ -8,6 +8,7 @@ export type GeocodingResults = {
     admin3?: string;
     latitude: number;
     longitude: number;
+    lastTemperature?: number;
   }[];
 };
 

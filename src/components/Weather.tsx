@@ -38,6 +38,9 @@ const Weather = (props: WeatherProps) => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      await db.cities.update(city.id, {
+        lastTemperature: data.current_weather.temperature,
+      });
       return data as Weather;
     },
   });
@@ -45,12 +48,12 @@ const Weather = (props: WeatherProps) => {
   if (error) return <ErrorAlert />;
 
   return (
-    <Card className='mx-auto w-full min-w-[220px] max-w-sm'>
+    <Card className='mx-auto w-full min-w-[220px] md:max-w-sm'>
       <CardContent className='p-6 pr-2 pt-2'>
         <div className='flex items-start justify-between'>
           <div className='pt-4'>
             <h2 className='text-3xl font-bold'>
-              {isLoading ? '...' : data?.current_weather.temperature}°C
+              {isLoading ? city.lastTemperature : data?.current_weather.temperature}°C
             </h2>
             <p className='text-md text-muted-foreground'>{`${city.name} - ${city.country}`}</p>
           </div>
@@ -68,9 +71,9 @@ const Weather = (props: WeatherProps) => {
             {[city.admin1, city.admin2, city.admin3].filter((n) => !!n).join(' / ')}
           </p>
           <div className='mt-1 text-base'>
-            {!isLoading && (
-              <Badge variant='outline'>{getWeather(data?.current_weather.weathercode).pt}</Badge>
-            )}
+            <Badge variant='outline'>
+              {isLoading ? 'atualizando...' : getWeather(data?.current_weather.weathercode).pt}
+            </Badge>
           </div>
         </div>
       </CardContent>

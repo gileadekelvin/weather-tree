@@ -57,7 +57,7 @@ const CommandMenu = (props: CommandMenuProps) => {
 
   return (
     <CommandDialog open={props.open} onOpenChange={props.setOpen}>
-      <CommandInput placeholder='Search a new city...' value={search} onValueChange={setSearch} />
+      <CommandInput placeholder='Buscar uma cidade...' value={search} onValueChange={setSearch} />
       <CommandList>
         {isLoading ? (
           <CommandLoading>
@@ -88,7 +88,7 @@ const CommandMenu = (props: CommandMenuProps) => {
           </CommandGroup>
         ) : (
           <CommandEmpty>
-            <p className='p-2 text-sm text-gray-500'>No results</p>
+            <p className='p-2 text-sm text-gray-500'>Sem resultados</p>
           </CommandEmpty>
         )}
       </CommandList>
