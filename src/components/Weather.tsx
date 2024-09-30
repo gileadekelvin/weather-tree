@@ -5,6 +5,10 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { City } from './types';
 import ErrorAlert from './Error';
 import { getWeather } from './weatherCodes';
+import { Card, CardContent } from './ui/card';
+import { Button } from './ui/button';
+import { X } from 'lucide-react';
+import { db } from '@/db';
 
 type WeatherProps = {
   city: City;
@@ -38,36 +42,39 @@ const Weather = (props: WeatherProps) => {
     },
   });
 
-  if (isLoading) return <>Loading...</>;
-
   if (error) return <ErrorAlert />;
 
   return (
-    <div className='flex flex-col gap-2'>
-      <div className='flex flex-row items-center justify-center gap-8'>
-        <h2 className='text-5xl font-bold'>{data?.current_weather.temperature}°C</h2>
-        <div className='gap flex flex-col'>
-          <span className='text-sm text-gray-900'>{`${city.name} - ${city.country}`}</span>
-          <span className='text-xs text-gray-500'>
+    <Card className='mx-auto w-full min-w-[220px] max-w-sm'>
+      <CardContent className='p-6 pr-2 pt-2'>
+        <div className='flex items-start justify-between'>
+          <div className='pt-4'>
+            <h2 className='text-3xl font-bold'>
+              {isLoading ? '...' : data?.current_weather.temperature}°C
+            </h2>
+            <p className='text-md text-muted-foreground'>{`${city.name} - ${city.country}`}</p>
+          </div>
+          <Button
+            variant='ghost'
+            size='icon'
+            onClick={() => db.cities.delete(city.id)}
+            aria-label='Remove card'
+          >
+            <X className='h-4 w-4' />
+          </Button>
+        </div>
+        <div className='mt-1'>
+          <p className='text-sm text-muted-foreground'>
             {[city.admin1, city.admin2, city.admin3].filter((n) => !!n).join(' / ')}
-          </span>
-          <div>
-            <TooltipProvider>
-              <Tooltip delayDuration={0}>
-                <TooltipTrigger>
-                  <Badge variant='outline'>
-                    {getWeather(data?.current_weather.weathercode).en}
-                  </Badge>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{getWeather(data?.current_weather.weathercode).pt}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+          </p>
+          <div className='mt-1 text-base'>
+            {!isLoading && (
+              <Badge variant='outline'>{getWeather(data?.current_weather.weathercode).pt}</Badge>
+            )}
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 
