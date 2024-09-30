@@ -66,7 +66,7 @@ const Weather = (props: WeatherProps) => {
           </Button>
         </div>
         <div className='mt-1'>
-          <p className='text-sm text-muted-foreground'>
+          <p className='text-xs text-muted-foreground'>
             {[city.admin3, city.admin2, city.admin1].filter((n) => !!n).join(' / ')}
           </p>
           <div className='mt-1 text-base'>
